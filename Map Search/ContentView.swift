@@ -8,16 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var mapController = MapController()
+    
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationStack {
+            MapView(mapController: mapController)
+        }  // NavigationStack
+        .searchable(text: $mapController.searchTerm)
+        .onSubmit(of: .search) {
+            mapController.search()
         }
-        .padding()
-    }
-}
+    }  // some View
+}  // ContentView
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
